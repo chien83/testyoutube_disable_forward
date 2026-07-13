@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Form mẫu nhúng YouTube – Khóa tua lần xem đầu</title>
+
+  <style>
+    :root {
+      --primary: #0b63ce;
+      --primary-dark: #084c9e;
+      --success: #168448;
+      --warning: #c56a00;
+      --danger: #c62828;
+      --text: #18324a;
+      --muted: #64788a;
+      --line: #dce6ef;
+      --surface: #ffffff;
+      --surface-soft: #f4f8fc;
+      --shadow: 0 16px 45px rgba(25, 64, 103, 0.14);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #eaf4ff 0, transparent 34%),
+        linear-gradient(180deg, #f7fbff 0%, #edf4fa 100%);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 28px));
+      margin: 28px auto;
+    }
+
+    .page-header {
+      margin-bottom: 18px;
+      padding: 4px 2px;
+    }
+
+    .page-header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 3vw, 38px);
+      line-height: 1.15;
+    }
+
+    .page-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(205, 220, 233, 0.92);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
+    }
+
+    .card-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 750;
+      font-size: 14px;
+    }
+
+    .required {
+      color: var(--danger);
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 13px;
+      border: 1px solid #c9d8e6;
+      border-radius: 11px;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(11, 99, 206, 0.12);
+    }
+
+    .hint {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-soft);
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .checkbox-row label {
+      line-height: 1.45;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      min-height: 46px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 11px;
+      font-weight: 800;
+      transition:
+        transform 0.12s ease,
+        filter 0.12s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(0.97);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: #eaf1f7;
+      border: 1px solid #d5e1eb;
+    }
+
+    .btn-danger-soft {
+      color: #a91d1d;
+      background: #fff1f1;
+      border: 1px solid #f3caca;
+    }
+
+    .demo-note {
+      margin-top: 18px;
+      padding: 13px 14px;
+      border-left: 4px solid var(--warning);
+      border-radius: 10px;
+      color: #6f4900;
+      background: #fff8e9;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .video-title {
+      margin: 0 0 4px;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.25;
+    }
+
+    .video-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .player-shell {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 260px;
+      background:
+        radial-gradient(circle at 50% 20%, #203e58, #0c1a27 72%);
+      overflow: hidden;
+    }
+
+    #player,
+    #player iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    .empty-player {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: #d6e6f4;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .empty-player-inner {
+      max-width: 500px;
+    }
+
+    .empty-icon {
+      width: 78px;
+      height: 78px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      font-size: 32px;
+    }
+
+    .status-panel {
+      padding: 18px 20px 20px;
+    }
+
+    .status-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .status-badge.locked {
+      color: #8d4a00;
+      background: #fff1d5;
+      border: 1px solid #f1d19b;
+    }
+
+    .status-badge.unlocked {
+      color: #0f6f3b;
+      background: #e9f8ef;
+      border: 1px solid #bee5ce;
+    }
+
+    .status-badge.waiting {
+      color: #4e667a;
+      background: #edf3f8;
+      border: 1px solid #d9e4ed;
+    }
+
+    .time-text {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      font-size: 13px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e5edf4;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #1473dc, #17a769);
+      transition: width 0.25s linear;
+    }
+
+    .status-message {
+      margin: 11px 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    .notice {
+      display: none;
+      margin-top: 15px;
+      padding: 13px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.45;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .notice.warning {
+      color: #7a4200;
+      background: #fff5df;
+      border: 1px solid #efd19c;
+    }
+
+    .notice.success {
+      color: #12683a;
+      background: #eaf8f0;
+      border: 1px solid #bfe4cf;
+    }
+
+    .notice.error {
+      color: #9b2020;
+      background: #fff0f0;
+      border: 1px solid #f1c8c8;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 99999;
+      right: 18px;
+      bottom: 18px;
+      width: min(390px, calc(100% - 36px));
+      padding: 14px 16px;
+      border-radius: 13px;
+      color: #fff;
+      background: #1d3448;
+      box-shadow: 0 16px 42px rgba(0,0,0,0.24);
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition:
+        opacity 0.22s ease,
+        transform 0.22s ease;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .code-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 850px) {
+      .page {
+        width: min(100% - 18px, 720px);
+        margin: 14px auto 24px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        order: 2;
+      }
+
+      .video-card {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .card-header,
+      .card-body,
+      .status-panel {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .player-shell {
+        min-height: 210px;
+      }
+
+      .status-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Nhúng video YouTube có khóa tua lần đầu</h1>
+      <p>
+        Nhập link YouTube và mã bài học. Tiến độ mẫu được lưu trên trình duyệt
+        để bạn kiểm tra giao diện trước khi kết nối Firebase theo tài khoản.
+      </p>
+    </header>
+
+    <section class="layout">
+      <aside class="card form-card">
+        <div class="card-header">
+          <h2>Cấu hình video</h2>
+        </div>
+
+        <div class="card-body">
+          <form id="videoForm" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="lessonId">
+                Mã bài học <span class="required">*</span>
+              </label>
+              <input
+                class="form-control"
+                id="lessonId"
+                name="lessonId"
+                type="text"
+                value="bai-hoc-01"
+                placeholder="Ví dụ: an-toan-dien-01"
+                autocomplete="off"
+              />
+              <small class="hint">
+                Dùng mã riêng cho từng bài để lưu đúng tiến độ.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="lessonTitle">
+                Tên bài học
+              </label>
+              <input
+                class="form-control"
+                id="lessonTitle"
+                name="lessonTitle"
+                type="text"
+                value="Bài học video mẫu"
+                placeholder="Nhập tên hiển thị"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="youtubeUrl">
+                Link hoặc ID YouTube <span class="required">*</span>
+              </label>
+              <input
+                class="form-control"
+                id="youtubeUrl"
+                name="youtubeUrl"
+                type="text"
+                value="https://www.youtube.com/watch?v=M7lc1UVf-VE"
+                placeholder="https://www.youtube.com/watch?v=..."
+                autocomplete="off"
+              />
+              <small class="hint">
+                Hỗ trợ link watch, youtu.be, shorts, embed hoặc ID video.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox-row">
+                <input id="lockFirstWatch" type="checkbox" checked />
+                <label for="lockFirstWatch">
+                  <strong>Không cho tua tới phần chưa xem</strong><br />
+                  Vẫn cho phép tua lùi. Sau khi xem hết, video được mở khóa.
+                </label>
+              </div>
+            </div>
+
+            <div class="button-stack">
+              <button class="btn btn-primary" type="submit">
+                Tải video vào trình phát
+              </button>
+
+              <button class="btn btn-secondary" id="completeDemoBtn" type="button">
+                Đánh dấu đã xem xong để thử
+              </button>
+
+              <button class="btn btn-danger-soft" id="resetBtn" type="button">
+                Xóa tiến độ của bài hiện tại
+              </button>
+            </div>
+          </form>
+
+          <div class="demo-note">
+            <strong>Lưu ý:</strong> Đây là bản mẫu chạy độc lập bằng
+            <code>localStorage</code>. Khi dùng thật, hãy thay phần
+            <code>ProgressStore</code> bằng Firebase/Cloud Function để lưu theo
+            UID tài khoản.
+          </div>
+        </div>
+      </aside>
+
+      <article class="card video-card">
+        <div class="card-header">
+          <h2 class="video-title" id="displayTitle">Bài học video mẫu</h2>
+          <p class="video-subtitle" id="displayLessonId">Mã bài: bài-hoc-01</p>
+        </div>
+
+        <div class="player-shell">
+          <div id="player"></div>
+
+          <div class="empty-player" id="emptyPlayer">
+            <div class="empty-player-inner">
+              <div class="empty-icon">▶</div>
+              <strong>Đang chuẩn bị trình phát YouTube…</strong>
+              <div style="margin-top:8px; opacity:.8">
+                Bạn cũng có thể nhập video khác ở biểu mẫu bên cạnh.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-panel">
+          <div class="status-top">
+            <span class="status-badge waiting" id="statusBadge">
+              ● Chưa tải video
+            </span>
+
+            <span class="time-text" id="timeText">00:00 / 00:00</span>
+          </div>
+
+          <div class="progress-track" aria-label="Tiến độ đã xem">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <p class="status-message" id="statusMessage">
+            Tiến độ hợp lệ là phần video đã thực sự phát qua trong lần xem đầu.
+          </p>
+
+          <div class="notice warning" id="seekNotice">
+            Lần xem đầu tiên chưa cho phép tua qua phần chưa học.
+          </div>
+
+          <div class="code-note">
+            Người học được phép quay lại phần cũ. Nếu kéo thanh thời gian vượt
+            quá mốc đã xem, trình phát sẽ tự đưa về mốc hợp lệ gần nhất.
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /*
+     * ============================================================
+     * 1. KHO LƯU TIẾN ĐỘ MẪU
+     * ============================================================
+     *
+     * Bản demo dùng localStorage để mở file HTML và kiểm tra ngay.
+     *
+     * Khi đưa vào website thật, hãy thay 3 hàm load/save/complete bằng:
+     * - Firebase Auth để lấy UID.
+     * - Firestore hoặc API máy chủ để lưu tiến độ theo UID + lessonId.
+     * - Cloud Function xác nhận completed để hạn chế sửa bằng DevTools.
+     */
+    const ProgressStore = {
+      prefix: "youtube-first-watch-demo:",
+
+      getKey(lessonId) {
+        return this.prefix + lessonId;
+      },
+
+      async load(lessonId) {
+        try {
+          const raw = localStorage.getItem(this.getKey(lessonId));
+
+          if (!raw) {
+            return {
+              watchedUntil: 0,
+              completed: false,
+              updatedAt: null
+            };
+          }
+
+          const data = JSON.parse(raw);
+
+          return {
+            watchedUntil: Math.max(0, Number(data.watchedUntil) || 0),
+            completed: data.completed === true,
+            updatedAt: data.updatedAt || null
+          };
+        } catch (error) {
+          console.warn("Không đọc được tiến độ:", error);
+
+          return {
+            watchedUntil: 0,
+            completed: false,
+            updatedAt: null
+          };
+        }
+      },
+
+      async save(lessonId, progress) {
+        const oldData = await this.load(lessonId);
+
+        const nextData = {
+          watchedUntil: Math.max(
+            oldData.watchedUntil,
+            Number(progress.watchedUntil) || 0
+          ),
+          completed: oldData.completed === true,
+          updatedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(
+          this.getKey(lessonId),
+          JSON.stringify(nextData)
+        );
+
+        return nextData;
+      },
+
+      async complete(lessonId, watchedUntil) {
+        const data = {
+          watchedUntil: Math.max(0, Number(watchedUntil) || 0),
+          completed: true,
+          updatedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(
+          this.getKey(lessonId),
+          JSON.stringify(data)
+        );
+
+        return data;
+      },
+
+      async reset(lessonId) {
+        localStorage.removeItem(this.getKey(lessonId));
+      }
+    };
+
+
+    /*
+     * ============================================================
+     * 2. BIẾN TRẠNG THÁI TRÌNH PHÁT
+     * ============================================================
+     */
+    let player = null;
+    let youtubeApiReady = false;
+    let pendingVideoConfig = null;
+
+    let activeLessonId = "";
+    let activeVideoId = "";
+    let activeTitle = "";
+
+    let lockEnabled = true;
+    let firstWatchLocked = true;
+    let completed = false;
+
+    let maxWatched = 0;
+    let duration = 0;
+    let lastSampleTime = 0;
+    let lastRealTimestamp = 0;
+
+    let guardTimer = null;
+    let saveTimer = null;
+    let noticeTimer = null;
+
+    let isProgrammaticSeek = false;
+    let playerIsReady = false;
+    let lastSavedSecond = -1;
+
+    const SEEK_TOLERANCE_SECONDS = 1.35;
+    const SAVE_INTERVAL_MS = 4000;
+    const GUARD_INTERVAL_MS = 300;
+
+
+    /*
+     * ============================================================
+     * 3. CÁC PHẦN TỬ GIAO DIỆN
+     * ============================================================
+     */
+    const videoForm = document.getElementById("videoForm");
+    const lessonIdInput = document.getElementById("lessonId");
+    const lessonTitleInput = document.getElementById("lessonTitle");
+    const youtubeUrlInput = document.getElementById("youtubeUrl");
+    const lockFirstWatchInput = document.getElementById("lockFirstWatch");
+
+    const displayTitle = document.getElementById("displayTitle");
+    const displayLessonId = document.getElementById("displayLessonId");
+    const emptyPlayer = document.getElementById("emptyPlayer");
+
+    const statusBadge = document.getElementById("statusBadge");
+    const timeText = document.getElementById("timeText");
+    const progressFill = document.getElementById("progressFill");
+    const statusMessage = document.getElementById("statusMessage");
+    const seekNotice = document.getElementById("seekNotice");
+
+    const completeDemoBtn = document.getElementById("completeDemoBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const toast = document.getElementById("toast");
+
+
+    /*
+     * ============================================================
+     * 4. TẢI YOUTUBE IFRAME API
+     * ============================================================
+     */
+    window.onYouTubeIframeAPIReady = function () {
+      youtubeApiReady = true;
+
+      if (pendingVideoConfig) {
+        createOrReplacePlayer(pendingVideoConfig);
+        pendingVideoConfig = null;
+      }
+    };
+
+
+    /*
+     * ============================================================
+     * 5. XỬ LÝ FORM
+     * ============================================================
+     */
+    videoForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const lessonId = normalizeLessonId(lessonIdInput.value);
+      const videoId = extractYouTubeId(youtubeUrlInput.value);
+      const title = lessonTitleInput.value.trim() || "Bài học video";
+      const shouldLock = lockFirstWatchInput.checked;
+
+      if (!lessonId) {
+        showToast("Vui lòng nhập mã bài học.");
+        lessonIdInput.focus();
+        return;
+      }
+
+      if (!videoId) {
+        showToast("Link hoặc ID YouTube chưa hợp lệ.");
+        youtubeUrlInput.focus();
+        return;
+      }
+
+      lessonIdInput.value = lessonId;
+
+      await loadLessonVideo({
+        lessonId,
+        videoId,
+        title,
+        shouldLock
+      });
+    });
+
+
+    completeDemoBtn.addEventListener("click", async function () {
+      const lessonId = normalizeLessonId(lessonIdInput.value);
+
+      if (!lessonId) {
+        showToast("Hãy nhập mã bài trước.");
+        return;
+      }
+
+      const completedAt = duration > 0
+        ? duration
+        : Math.max(maxWatched, 1);
+
+      await ProgressStore.complete(lessonId, completedAt);
+
+      if (lessonId === activeLessonId) {
+        completed = true;
+        firstWatchLocked = false;
+        maxWatched = Math.max(maxWatched, completedAt);
+        updateStatusUI();
+      }
+
+      showToast(
+        "Đã đánh dấu hoàn thành. Tải lại video để thử chế độ được phép tua."
+      );
+    });
+
+
+    resetBtn.addEventListener("click", async function () {
+      const lessonId = normalizeLessonId(lessonIdInput.value);
+
+      if (!lessonId) {
+        showToast("Hãy nhập mã bài trước.");
+        return;
+      }
+
+      await ProgressStore.reset(lessonId);
+
+      if (lessonId === activeLessonId) {
+        maxWatched = 0;
+        completed = false;
+        firstWatchLocked = lockEnabled;
+
+        if (playerIsReady && player) {
+          safeSeekTo(0, false);
+          player.pauseVideo();
+        }
+
+        updateStatusUI();
+      }
+
+      showToast("Đã xóa tiến độ của bài: " + lessonId);
+    });
+
+
+    /*
+     * ============================================================
+     * 6. KHỞI TẠO / THAY VIDEO
+     * ============================================================
+     */
+    async function loadLessonVideo(config) {
+      stopTimers();
+
+      const savedProgress = await ProgressStore.load(config.lessonId);
+
+      activeLessonId = config.lessonId;
+      activeVideoId = config.videoId;
+      activeTitle = config.title;
+
+      lockEnabled = config.shouldLock;
+      completed = savedProgress.completed === true;
+      firstWatchLocked = lockEnabled && !completed;
+
+      maxWatched = Math.max(0, Number(savedProgress.watchedUntil) || 0);
+      duration = 0;
+      lastSampleTime = maxWatched;
+      lastRealTimestamp = performance.now();
+      lastSavedSecond = Math.floor(maxWatched);
+      isProgrammaticSeek = false;
+      playerIsReady = false;
+
+      displayTitle.textContent = activeTitle;
+      displayLessonId.textContent = "Mã bài: " + activeLessonId;
+
+      updateStatusUI();
+      setNotice("", "");
+
+      const playerConfig = {
+        videoId: activeVideoId,
+        disableKeyboard: firstWatchLocked
+      };
+
+      if (!youtubeApiReady || !window.YT || !YT.Player) {
+        pendingVideoConfig = playerConfig;
+        showToast("Đang tải thư viện YouTube…");
+        return;
+      }
+
+      createOrReplacePlayer(playerConfig);
+    }
+
+
+    function createOrReplacePlayer(config) {
+      stopTimers();
+
+      if (player && typeof player.destroy === "function") {
+        try {
+          player.destroy();
+        } catch (error) {
+          console.warn("Không hủy được player cũ:", error);
+        }
+      }
+
+      document.getElementById("player").innerHTML = "";
+      emptyPlayer.style.display = "grid";
+
+      const playerVars = {
+        playsinline: 1,
+        controls: 1,
+        rel: 0,
+        fs: 1,
+        modestbranding: 1,
+        disablekb: config.disableKeyboard ? 1 : 0
+      };
+
+      /*
+       * Không truyền origin khi mở trực tiếp bằng file://.
+       * Khi chạy trên website HTTPS, origin giúp API xác định đúng domain.
+       */
+      if (location.protocol === "http:" || location.protocol === "https:") {
+        playerVars.origin = location.origin;
+      }
+
+      player = new YT.Player("player", {
+        width: "100%",
+        height: "100%",
+        videoId: config.videoId,
+        playerVars,
+
+        events: {
+          onReady: onPlayerReady,
+          onStateChange: onPlayerStateChange,
+          onError: onPlayerError
+        }
+      });
+    }
+
+
+    function onPlayerReady(event) {
+      playerIsReady = true;
+      emptyPlayer.style.display = "none";
+
+      duration = Number(event.target.getDuration()) || 0;
+
+      /*
+       * Nếu người học đang học dở, tiếp tục tại mốc xa nhất đã xem.
+       * Trừ nhẹ 0,25 giây để tránh sai số khi khôi phục.
+       */
+      if (!completed && maxWatched > 0) {
+        safeSeekTo(Math.max(0, maxWatched - 0.25), false);
+      }
+
+      lastSampleTime = Number(event.target.getCurrentTime()) || 0;
+      lastRealTimestamp = performance.now();
+
+      startGuardTimer();
+      startSaveTimer();
+      updateStatusUI();
+    }
+
+
+    function onPlayerStateChange(event) {
+      if (!playerIsReady) {
+        return;
+      }
+
+      if (event.data === YT.PlayerState.PLAYING) {
+        lastSampleTime = Number(player.getCurrentTime()) || 0;
+        lastRealTimestamp = performance.now();
+      }
+
+      if (event.data === YT.PlayerState.PAUSED) {
+        saveProgressNow();
+      }
+
+      if (event.data === YT.PlayerState.ENDED) {
+        handleVideoEnded();
+      }
+    }
+
+
+    function onPlayerError(event) {
+      const messages = {
+        2: "ID video không hợp lệ.",
+        5: "Trình duyệt không phát được video HTML5 này.",
+        100: "Video không tồn tại hoặc đã bị xóa.",
+        101: "Chủ video không cho phép nhúng video này.",
+        150: "Chủ video không cho phép nhúng video này."
+      };
+
+      const message =
+        messages[event.data] ||
+        "Không tải được video YouTube. Hãy kiểm tra lại link.";
+
+      setNotice(message, "error");
+      showToast(message);
+    }
+
+
+    /*
+     * ============================================================
+     * 7. LOGIC CHỐNG TUA TỚI PHẦN CHƯA XEM
+     * ============================================================
+     */
+    function startGuardTimer() {
+      clearInterval(guardTimer);
+
+      guardTimer = setInterval(function () {
+        if (!playerIsReady || !player) {
+          return;
+        }
+
+        samplePlayback();
+      }, GUARD_INTERVAL_MS);
+    }
+
+
+    function samplePlayback() {
+      let currentTime;
+      let playerState;
+      let playbackRate;
+
+      try {
+        currentTime = Number(player.getCurrentTime()) || 0;
+        playerState = player.getPlayerState();
+        playbackRate = Number(player.getPlaybackRate()) || 1;
+        duration = Number(player.getDuration()) || duration || 0;
+      } catch (error) {
+        return;
+      }
+
+      const now = performance.now();
+      const elapsedReal = Math.max(
+        0,
+        Math.min(2, (now - lastRealTimestamp) / 1000)
+      );
+
+      const naturalAdvance =
+        playerState === YT.PlayerState.PLAYING
+          ? elapsedReal * playbackRate
+          : 0;
+
+      const expectedTime = lastSampleTime + naturalAdvance;
+      const jumpedForward =
+        currentTime > expectedTime + SEEK_TOLERANCE_SECONDS;
+
+      const beyondWatchedFrontier =
+        currentTime > maxWatched + SEEK_TOLERANCE_SECONDS;
+
+      /*
+       * Chỉ chặn khi:
+       * - Đang ở lần xem đầu.
+       * - Người dùng nhảy về phía trước.
+       * - Mốc mới vượt qua phần xa nhất đã thực sự xem.
+       *
+       * Tua lùi luôn được phép.
+       */
+      if (
+        firstWatchLocked &&
+        !isProgrammaticSeek &&
+        jumpedForward &&
+        beyondWatchedFrontier
+      ) {
+        const returnTime = Math.max(0, maxWatched - 0.15);
+
+        safeSeekTo(returnTime, true);
+        showSeekWarning();
+
+        lastSampleTime = returnTime;
+        lastRealTimestamp = performance.now();
+        updateStatusUI();
+        return;
+      }
+
+      /*
+       * Chỉ mở rộng vùng đã xem khi video đang phát gần sát "biên học".
+       * Nếu người học tua lùi rồi xem lại, maxWatched không bị giảm.
+       */
+      const isPlaying = playerState === YT.PlayerState.PLAYING;
+      const isNearFrontier =
+        currentTime >= maxWatched - SEEK_TOLERANCE_SECONDS &&
+        currentTime <= maxWatched + SEEK_TOLERANCE_SECONDS + 0.8;
+
+      if (firstWatchLocked && isPlaying && isNearFrontier) {
+        maxWatched = Math.max(maxWatched, currentTime);
+      }
+
+      /*
+       * Khi khóa bị tắt hoặc bài đã hoàn thành, thanh tiến độ hiển thị
+       * thời gian xem hiện tại nhưng không dùng để chặn.
+       */
+      if (!firstWatchLocked && isPlaying && !completed) {
+        maxWatched = Math.max(maxWatched, currentTime);
+      }
+
+      lastSampleTime = currentTime;
+      lastRealTimestamp = now;
+
+      updateStatusUI();
+    }
+
+
+    function safeSeekTo(seconds, allowSeekAhead) {
+      if (!player || !playerIsReady) {
+        return;
+      }
+
+      isProgrammaticSeek = true;
+
+      try {
+        player.seekTo(Math.max(0, seconds), allowSeekAhead === true);
+      } catch (error) {
+        console.warn("Không thể seek:", error);
+      }
+
+      setTimeout(function () {
+        isProgrammaticSeek = false;
+
+        try {
+          lastSampleTime = Number(player.getCurrentTime()) || 0;
+        } catch (error) {
+          lastSampleTime = Math.max(0, seconds);
+        }
+
+        lastRealTimestamp = performance.now();
+      }, 700);
+    }
+
+
+    function showSeekWarning() {
+      setNotice(
+        "Lần xem đầu tiên chưa cho phép tua qua phần chưa học. Video đã trở lại mốc gần nhất.",
+        "warning"
+      );
+
+      clearTimeout(noticeTimer);
+
+      noticeTimer = setTimeout(function () {
+        if (firstWatchLocked) {
+          setNotice("", "");
+        }
+      }, 2800);
+    }
+
+
+    async function handleVideoEnded() {
+      duration = Number(player.getDuration()) || duration || 0;
+
+      /*
+       * Chỉ hoàn thành tự động nếu biên đã xem đã tới gần cuối video.
+       * Việc kéo thẳng đến cuối không làm completed=true.
+       */
+      const completionThreshold = Math.max(0, duration - 3);
+
+      if (
+        !lockEnabled ||
+        completed ||
+        maxWatched >= completionThreshold
+      ) {
+        maxWatched = Math.max(maxWatched, duration);
+        completed = true;
+        firstWatchLocked = false;
+
+        await ProgressStore.complete(activeLessonId, maxWatched);
+
+        setNotice(
+          "Bạn đã xem xong. Từ lần mở tiếp theo, video được phép tua tự do.",
+          "success"
+        );
+
+        updateStatusUI();
+        showToast("Đã hoàn thành bài học video.");
+      } else {
+        safeSeekTo(Math.max(0, maxWatched - 0.15), true);
+        showSeekWarning();
+      }
+    }
+
+
+    /*
+     * ============================================================
+     * 8. LƯU TIẾN ĐỘ ĐỊNH KỲ
+     * ============================================================
+     */
+    function startSaveTimer() {
+      clearInterval(saveTimer);
+
+      saveTimer = setInterval(function () {
+        saveProgressNow();
+      }, SAVE_INTERVAL_MS);
+    }
+
+
+    async function saveProgressNow() {
+      if (
+        !activeLessonId ||
+        completed ||
+        !lockEnabled
+      ) {
+        return;
+      }
+
+      const currentSecond = Math.floor(maxWatched);
+
+      if (currentSecond <= lastSavedSecond) {
+        return;
+      }
+
+      lastSavedSecond = currentSecond;
+
+      await ProgressStore.save(activeLessonId, {
+        watchedUntil: maxWatched
+      });
+    }
+
+
+    window.addEventListener("beforeunload", function () {
+      /*
+       * localStorage là đồng bộ nên lưu ngay được khi đóng trang.
+       * Với Firebase, hãy dùng heartbeat định kỳ ở trên làm nguồn chính.
+       */
+      if (
+        activeLessonId &&
+        lockEnabled &&
+        !completed
+      ) {
+        const key = ProgressStore.getKey(activeLessonId);
+
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            watchedUntil: maxWatched,
+            completed: false,
+            updatedAt: new Date().toISOString()
+          })
+        );
+      }
+    });
+
+
+    function stopTimers() {
+      clearInterval(guardTimer);
+      clearInterval(saveTimer);
+      clearTimeout(noticeTimer);
+
+      guardTimer = null;
+      saveTimer = null;
+      noticeTimer = null;
+    }
+
+
+    /*
+     * ============================================================
+     * 9. HIỂN THỊ GIAO DIỆN
+     * ============================================================
+     */
+    function updateStatusUI() {
+      const currentTime = getCurrentPlayerTime();
+      const visibleDuration = duration > 0 ? duration : 0;
+
+      let progressSeconds;
+
+      if (completed && visibleDuration > 0) {
+        progressSeconds = visibleDuration;
+      } else if (firstWatchLocked) {
+        progressSeconds = maxWatched;
+      } else {
+        progressSeconds = Math.max(maxWatched, currentTime);
+      }
+
+      const percent =
+        visibleDuration > 0
+          ? Math.min(100, Math.max(0, progressSeconds / visibleDuration * 100))
+          : 0;
+
+      progressFill.style.width = percent.toFixed(2) + "%";
+      timeText.textContent =
+        formatTime(currentTime) + " / " + formatTime(visibleDuration);
+
+      statusBadge.className = "status-badge";
+
+      if (!playerIsReady) {
+        statusBadge.classList.add("waiting");
+        statusBadge.textContent = "● Đang tải video";
+
+        statusMessage.textContent =
+          "Trình phát sẽ khôi phục tiến độ đã lưu của mã bài này.";
+        return;
+      }
+
+      if (completed || !lockEnabled) {
+        statusBadge.classList.add("unlocked");
+        statusBadge.textContent = "✓ Đã mở khóa tua";
+
+        statusMessage.textContent = completed
+          ? "Bài đã hoàn thành. Người học có thể tua tới bất kỳ vị trí nào."
+          : "Chức năng khóa tua đang được tắt trong biểu mẫu.";
+      } else {
+        statusBadge.classList.add("locked");
+        statusBadge.textContent = "🔒 Đang khóa tua lần đầu";
+
+        statusMessage.textContent =
+          "Đã xem hợp lệ đến " +
+          formatTime(maxWatched) +
+          ". Có thể tua lùi nhưng không thể vượt qua mốc này.";
+      }
+    }
+
+
+    function setNotice(message, type) {
+      seekNotice.className = "notice";
+
+      if (!message) {
+        seekNotice.textContent = "";
+        return;
+      }
+
+      seekNotice.textContent = message;
+      seekNotice.classList.add("show", type || "warning");
+    }
+
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(showToast.timer);
+
+      showToast.timer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+
+    function getCurrentPlayerTime() {
+      if (!playerIsReady || !player) {
+        return 0;
+      }
+
+      try {
+        return Math.max(0, Number(player.getCurrentTime()) || 0);
+      } catch (error) {
+        return 0;
+      }
+    }
+
+
+    function formatTime(totalSeconds) {
+      const safeSeconds = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+      const hours = Math.floor(safeSeconds / 3600);
+      const minutes = Math.floor((safeSeconds % 3600) / 60);
+      const seconds = safeSeconds % 60;
+
+      const mm = String(minutes).padStart(2, "0");
+      const ss = String(seconds).padStart(2, "0");
+
+      if (hours > 0) {
+        return String(hours).padStart(2, "0") + ":" + mm + ":" + ss;
+      }
+
+      return mm + ":" + ss;
+    }
+
+
+    /*
+     * ============================================================
+     * 10. ĐỌC LINK YOUTUBE
+     * ============================================================
+     */
+    function extractYouTubeId(input) {
+      const value = String(input || "").trim();
+
+      if (!value) {
+        return "";
+      }
+
+      /*
+       * Nếu người dùng nhập trực tiếp ID 11 ký tự.
+       */
+      if (/^[A-Za-z0-9_-]{11}$/.test(value)) {
+        return value;
+      }
+
+      let urlText = value;
+
+      if (!/^https?:\/\//i.test(urlText)) {
+        urlText = "https://" + urlText;
+      }
+
+      try {
+        const url = new URL(urlText);
+        const host = url.hostname.replace(/^www\./, "").toLowerCase();
+
+        if (host === "youtu.be") {
+          return validateVideoId(url.pathname.split("/").filter(Boolean)[0]);
+        }
+
+        if (
+          host === "youtube.com" ||
+          host === "m.youtube.com" ||
+          host === "music.youtube.com" ||
+          host === "youtube-nocookie.com"
+        ) {
+          const watchId = url.searchParams.get("v");
+
+          if (watchId) {
+            return validateVideoId(watchId);
+          }
+
+          const parts = url.pathname.split("/").filter(Boolean);
+          const markerIndex = parts.findIndex(function (part) {
+            return ["embed", "shorts", "live"].includes(part);
+          });
+
+          if (markerIndex >= 0 && parts[markerIndex + 1]) {
+            return validateVideoId(parts[markerIndex + 1]);
+          }
+        }
+      } catch (error) {
+        return "";
+      }
+
+      return "";
+    }
+
+
+    function validateVideoId(value) {
+      const candidate = String(value || "").split(/[?&#/]/)[0];
+
+      return /^[A-Za-z0-9_-]{11}$/.test(candidate)
+        ? candidate
+        : "";
+    }
+
+
+    function normalizeLessonId(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/[^a-z0-9_-]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 100);
+    }
+
+
+    /*
+     * ============================================================
+     * 11. TẢI VIDEO MẪU KHI MỞ TRANG
+     * ============================================================
+     */
+    window.addEventListener("load", function () {
+      videoForm.requestSubmit();
+    });
+  </script>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
